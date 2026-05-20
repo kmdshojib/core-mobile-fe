@@ -9,6 +9,14 @@ import { navItems } from '@/lib/data';
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { colorScheme } = useColorScheme();
   const isDark = colorScheme === 'dark';
+  const focusedRoute = state.routes[state.index];
+  const hideTabBar =
+    focusedRoute?.name === 'mock' &&
+    String((focusedRoute.params as { hideTabBar?: unknown } | undefined)?.hideTabBar) === 'true';
+
+  if (hideTabBar) {
+    return null;
+  }
 
   return (
     <SafeAreaView edges={['bottom']} className="absolute bottom-0 left-0 right-0 bg-transparent">
